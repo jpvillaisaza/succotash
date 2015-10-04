@@ -1,0 +1,50 @@
+name: succotash
+version: 0.1.0
+build-type: Simple
+cabal-version: >= 1.22
+
+flag development
+  description: Whether to build the server in development (interpreted) mode
+  default: False
+
+-- library
+--   hs-source-dirs:      src
+--   exposed-modules:     Lib
+--   ghc-options:         -Wall
+--   build-depends:       base >= 4.7 && < 5
+--   default-language:    Haskell2010
+
+executable succotash
+  hs-source-dirs: app
+  main-is: Main.hs
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >= 4.8 && < 4.9
+    -- , succotash
+    , bytestring
+    , heist >= 0.14 && < 0.15
+    , lens >= 4.12 && < 4.13
+    , mtl >= 2.2 && < 2.3
+    , snap >= 0.14 && < 0.15
+    , snap-core >= 0.9 && < 0.10
+    , snap-server >= 0.9 && < 0.10
+    , snap-loader-static >= 0.9 && < 0.10
+    , text >= 1.2 && < 1.3
+    , time
+    , xmlhtml >= 0.2 && < 0.3
+  default-language: Haskell2010
+
+  if flag(development)
+    cpp-options: -DDEVELOPMENT
+    ghc-options: -w
+    build-depends:
+      snap-loader-dynamic >= 0.10 && < 0.11
+
+-- test-suite sd-test
+--   type:                exitcode-stdio-1.0
+--   hs-source-dirs:      test
+--   main-is:             Spec.hs
+--   build-depends:       base
+--                      , succotash
+--   ghc-options:         -Wall
+--   default-language:    Haskell2010
