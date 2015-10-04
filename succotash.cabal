@@ -17,6 +17,7 @@ flag development
 executable succotash
   hs-source-dirs: app
   main-is: Main.hs
+  other-modules: Application Site
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >= 4.8 && < 4.9
